@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RenovasiPro Depok – Jasa Renovasi Rumah Terpercaya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark: #1a1a1a; --gold: #c9a84c; --gold-light: #e2c47a;
+      --cream: #f9f5ef; --white: #ffffff; --gray: #6b6b6b; --light: #f0ece4;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--dark); background: var(--white); overflow-x: hidden; }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      background: rgba(26,26,26,0.97); backdrop-filter: blur(10px);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); text-decoration: none; }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.5px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { background: var(--gold); color: var(--dark) !important; padding: 0.5rem 1.2rem; border-radius: 4px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--gold-light) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 25px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80') center/cover no-repeat;
+      opacity: 0.22;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 650px; padding: 8rem 5% 5rem; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold); font-size: 0.78rem; padding: 6px 14px; border-radius: 50px;
+      letter-spacing: 1px; font-weight: 500; margin-bottom: 1.5rem; text-transform: uppercase;
+    }
+    .hero-badge::before { content: '★'; }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.15; font-weight: 700; color: var(--white); margin-bottom: 1.2rem; }
+    h1 em { color: var(--gold); font-style: normal; }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.72); line-height: 1.7; margin-bottom: 2.5rem; max-width: 520px; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--gold); color: var(--dark); padding: 0.85rem 2rem; border-radius: 4px; font-weight: 600; text-decoration: none; font-size: 0.95rem; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline { border: 1.5px solid rgba(255,255,255,0.4); color: var(--white); padding: 0.85rem 2rem; border-radius: 4px; font-weight: 500; text-decoration: none; font-size: 0.95rem; transition: all 0.25s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* STATS */
+    .stats { background: var(--gold); display: grid; grid-template-columns: repeat(4,1fr); text-align: center; padding: 1.8rem 5%; }
+    .stat-item { border-right: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; }
+    .stat-item:last-child { border: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--dark); }
+    .stat-label { font-size: 0.8rem; color: rgba(26,26,26,0.7); font-weight: 500; }
+
+    /* SECTIONS */
+    section { padding: 5rem 5%; }
+    .section-tag { color: var(--gold); font-size: 0.78rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.7rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+    .section-sub { color: var(--gray); font-size: 1rem; line-height: 1.7; max-width: 520px; }
+
+    /* SERVICES */
+    #layanan { background: var(--cream); }
+    .services-header { text-align: center; margin-bottom: 3.5rem; }
+    .services-header .section-sub { margin: 0 auto; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5rem; }
+    .service-card { background: var(--white); border-radius: 8px; padding: 2rem; transition: transform 0.25s, box-shadow 0.25s; border-bottom: 3px solid transparent; }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-bottom-color: var(--gold); }
+    .service-icon { width: 56px; height: 56px; border-radius: 8px; background: rgba(201,168,76,0.12); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 1.2rem; }
+    .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.6rem; }
+    .service-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.65; }
+
+    /* ABOUT */
+    #tentang { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap img { width: 100%; border-radius: 8px; display: block; object-fit: cover; height: 480px; }
+    .about-badge { position: absolute; bottom: -20px; right: -20px; background: var(--gold); padding: 1.5rem 2rem; border-radius: 8px; text-align: center; }
+    .about-badge strong { display: block; font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--dark); }
+    .about-badge span { font-size: 0.78rem; color: var(--dark); font-weight: 600; }
+    .about-text { padding-right: 1rem; }
+    .about-text .section-sub { margin-bottom: 1.5rem; }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
+    .checklist li { display: flex; align-items: flex-start; gap: 10px; color: var(--dark); font-size: 0.95rem; }
+    .checklist li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* PORTFOLIO */
+    #portofolio { background: var(--dark); }
+    #portofolio .section-tag { color: var(--gold-light); }
+    #portofolio .section-title { color: var(--white); }
+    #portofolio .section-sub { color: rgba(255,255,255,0.6); }
+    .portfolio-header { margin-bottom: 3rem; }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: 250px 250px; gap: 1rem; }
+    .portfolio-item { position: relative; border-radius: 8px; overflow: hidden; cursor: pointer; }
+    .portfolio-item:first-child { grid-row: span 2; }
+    .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .portfolio-item:hover img { transform: scale(1.06); }
+    .portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%); display: flex; align-items: flex-end; padding: 1.2rem; opacity: 0; transition: opacity 0.3s; }
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+    .portfolio-overlay h4 { color: var(--white); font-size: 1rem; font-weight: 600; }
+    .portfolio-overlay span { color: var(--gold); font-size: 0.8rem; display: block; }
+
+    /* PROSES */
+    #proses { background: var(--cream); text-align: center; }
+    #proses .section-sub { margin: 0 auto 3.5rem; }
+    .process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; position: relative; }
+    .process-steps::before { content: ''; position: absolute; top: 30px; left: 12.5%; right: 12.5%; height: 2px; background: linear-gradient(to right, var(--gold), var(--gold-light), var(--gold)); z-index: 0; }
+    .step { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .step-num { width: 60px; height: 60px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--dark); box-shadow: 0 0 0 6px var(--cream); }
+    .step h4 { font-weight: 600; font-size: 0.95rem; }
+    .step p { color: var(--gray); font-size: 0.85rem; line-height: 1.6; }
+
+    /* TESTIMONI */
+    #testimoni .section-sub { margin: 0 auto; }
+    .testi-header { text-align: center; margin-bottom: 3rem; }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1.5rem; }
+    .testi-card { background: var(--cream); border-radius: 8px; padding: 1.8rem; border-left: 4px solid var(--gold); }
+    .stars { color: var(--gold); font-size: 1rem; margin-bottom: 0.8rem; }
+    .testi-card p { color: var(--dark); font-size: 0.92rem; line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+    .testi-author { display: flex; align-items: center; gap: 10px; }
+    .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--dark); font-size: 0.9rem; }
+    .testi-name { font-weight: 600; font-size: 0.9rem; }
+    .testi-loc { color: var(--gray); font-size: 0.78rem; }
+
+    /* KONTAK */
+    #kontak { background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    #kontak .section-title { color: var(--white); }
+    #kontak .section-sub { color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+    #kontak .section-tag { color: var(--gold); }
+    .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 12px; }
+    .contact-icon { width: 42px; height: 42px; border-radius: 8px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-item h4 { color: var(--white); font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+    .contact-item p { color: rgba(255,255,255,0.6); font-size: 0.88rem; }
+    .contact-item a { color: var(--gold); text-decoration: none; }
+    .contact-form { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2.5rem; }
+    .contact-form h3 { font-family: 'Playfair Display', serif; color: var(--white); margin-bottom: 1.5rem; font-size: 1.3rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; color: rgba(255,255,255,0.7); font-size: 0.82rem; margin-bottom: 5px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.7rem 1rem; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: var(--white); font-size: 0.9rem; font-family: inherit; transition: border 0.2s; outline: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select option { background: #2d2d2d; }
+    .form-group textarea { resize: vertical; height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit { width: 100%; padding: 0.9rem; background: var(--gold); border: none; border-radius: 6px; color: var(--dark); font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-submit:hover { background: var(--gold-light); }
+
+    /* FOOTER */
+    footer { background: #111; padding: 3rem 5% 1.5rem; color: rgba(255,255,255,0.5); }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+    .footer-brand .nav-logo { display: block; margin-bottom: 0.8rem; font-size: 1.5rem; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { color: var(--white); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col ul a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; text-align: center; font-size: 0.8rem; }
+
+    /* WA FLOAT */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 9999; }
+    .wa-btn { width: 62px; height: 62px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(37,211,102,0.45); text-decoration: none; animation: pulse-wa 2.5s infinite; transition: transform 0.2s; }
+    .wa-btn:hover { transform: scale(1.1); }
+    .wa-btn svg { width: 32px; height: 32px; fill: white; }
+    .wa-tooltip { position: absolute; right: 74px; top: 50%; transform: translateY(-50%); background: var(--dark); color: var(--white); font-size: 0.8rem; white-space: nowrap; padding: 8px 14px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .wa-tooltip::after { content: ''; position: absolute; right: -7px; top: 50%; transform: translateY(-50%); border: 7px solid transparent; border-right: none; border-left-color: var(--dark); }
+    .wa-float:hover .wa-tooltip { opacity: 1; }
+    @keyframes pulse-wa { 0%,100% { box-shadow: 0 6px 20px rgba(37,211,102,0.4); } 50% { box-shadow: 0 6px 32px rgba(37,211,102,0.7); } }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(26,26,26,0.98); flex-direction: column; padding: 1.5rem 5%; gap: 1.2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+      .nav-links.open { display: flex; }
+      .stats { grid-template-columns: repeat(2,1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3),
+      .stat-item:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.3); }
+      .stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.3); }
+      #tentang { grid-template-columns: 1fr; gap: 3rem; }
+      .about-badge { right: 10px; bottom: -15px; }
+      .about-text { padding: 1.5rem 0 0; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .portfolio-item:first-child { grid-row: span 1; grid-column: span 2; height: 220px; }
+      .portfolio-item { height: 180px; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      #kontak { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .wa-tooltip { display: none; }
+    }
+    @media (max-width: 500px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-item:first-child { grid-column: span 1; height: 200px; }
+      .portfolio-item { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#hero" class="nav-logo">Renovasi<span>Pro</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#portofolio">Portofolio</a></li>
+    <li><a href="#proses">Proses</a></li>
+    <li><a href="#testimoni">Testimoni</a></li>
+    <li><a href="#kontak" class="nav-cta">Konsultasi Gratis</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Jasa Renovasi Terpercaya · Depok</div>
+    <h1>Wujudkan Rumah <em>Impian</em> Anda Bersama Kami</h1>
+    <p class="hero-sub">RenovasiPro hadir untuk mengubah hunian Anda menjadi ruang yang indah, fungsional, dan bernilai tinggi. Melayani seluruh wilayah Depok dan sekitarnya.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/6281234567890?text=Halo%20RenovasiPro%2C%20saya%20ingin%20konsultasi%20renovasi%20rumah" target="_blank" class="btn-primary">💬 Konsultasi WhatsApp</a>
+      <a href="#portofolio" class="btn-outline">Lihat Portofolio</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Proyek Selesai</div></div>
+  <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Tahun Pengalaman</div></div>
+  <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Kepuasan Klien</div></div>
+  <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Tim Profesional</div></div>
+</div>
+
+<!-- LAYANAN -->
+<section id="layanan">
+  <div class="services-header">
+    <div class="section-tag">Layanan Kami</div>
+    <h2 class="section-title">Solusi Renovasi Lengkap untuk Hunian Anda</h2>
+    <p class="section-sub">Berbagai layanan renovasi dan konstruksi dengan standar kualitas tinggi dan pengerjaan yang rapi.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">🏠</div><h3>Renovasi Total</h3><p>Transformasi menyeluruh rumah Anda dari struktur hingga finishing dengan desain modern dan material berkualitas.</p></div>
+    <div class="service-card"><div class="service-icon">🛋️</div><h3>Desain Interior</h3><p>Perencanaan tata ruang, pemilihan furnitur, dan dekorasi yang menciptakan suasana rumah yang nyaman dan estetik.</p></div>
+    <div class="service-card"><div class="service-icon">🪟</div><h3>Kusen & Partisi</h3><p>Pemasangan pintu, jendela, partisi kaca, dan kusen aluminium dengan presisi tinggi dan tahan lama.</p></div>
+    <div class="service-card"><div class="service-icon">🔧</div><h3>Instalasi Listrik & Air</h3><p>Pemasangan instalasi listrik, plumbing, dan sanitasi oleh teknisi berpengalaman dengan standar keamanan SNI.</p></div>
+    <div class="service-card"><div class="service-icon">🎨</div><h3>Cat & Finishing</h3><p>Pengecatan interior & eksterior, wallpaper, dan berbagai teknik finishing premium untuk tampilan yang memukau.</p></div>
+    <div class="service-card"><div class="service-icon">🏗️</div><h3>Bangun Baru</h3><p>Pembangunan rumah baru dari nol dengan konsultasi arsitek dan manajemen proyek yang transparan.</p></div>
+  </div>
+</section>
+
+<!-- TENTANG -->
+<section id="tentang">
+  <div class="about-img-wrap">
+    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80" alt="Tim RenovasiPro bekerja" loading="lazy" />
+    <div class="about-badge"><strong>10+</strong><span>Tahun Pengalaman</span></div>
+  </div>
+  <div class="about-text">
+    <div class="section-tag">Tentang Kami</div>
+    <h2 class="section-title">Mengapa Memilih RenovasiPro Depok?</h2>
+    <p class="section-sub">Kami adalah tim profesional yang berdedikasi menghadirkan hasil renovasi terbaik di wilayah Depok dan sekitarnya.</p>
+    <ul class="checklist">
+      <li>Tim terlatih & bersertifikat dengan pengalaman 10+ tahun</li>
+      <li>Material berkualitas tinggi dengan garansi pengerjaan</li>
+      <li>Harga transparan, tidak ada biaya tersembunyi</li>
+      <li>Penyelesaian tepat waktu sesuai perjanjian</li>
+      <li>Konsultasi desain gratis sebelum pengerjaan</li>
+      <li>Layanan purna jual dan perawatan pasca renovasi</li>
+    </ul>
+    <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20tahu%20lebih%20lanjut%20tentang%20RenovasiPro" target="_blank" class="btn-primary">Hubungi Kami Sekarang →</a>
+  </div>
+</section>
+
+<!-- PORTOFOLIO -->
+<section id="portofolio">
+  <div class="portfolio-header">
+    <div class="section-tag">Portofolio</div>
+    <h2 class="section-title">Hasil Karya Terbaik Kami</h2>
+    <p class="section-sub">Beberapa proyek renovasi yang telah kami selesaikan dengan hasil yang memuaskan klien.</p>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Ruang tamu modern" loading="lazy" />
+      <div class="portfolio-overlay"><div><h4>Ruang Tamu Modern</h4><span>Cinere, Depok</span></div></div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Dapur minimalis" loading="lazy" />
+      <div class="portfolio-overlay"><div><h4>Dapur Minimalis</h4><span>Beji, Depok</span></div></div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=500&q=80" alt="Kamar tidur elegan" loading="lazy" />
+      <div class="portfolio-overlay"><div><h4>Kamar Tidur Elegan</h4><span>Pancoran Mas, Depok</span></div></div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Kamar mandi mewah" loading="lazy" />
+      <div class="portfolio-overlay"><div><h4>Kamar Mandi Mewah</h4><span>Sukmajaya, Depok</span></div></div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80" alt="Fasad eksterior" loading="lazy" />
+      <div class="portfolio-overlay"><div><h4>Fasad & Eksterior</h4><span>Sawangan, Depok</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROSES -->
+<section id="proses">
+  <div class="section-tag">Cara Kerja</div>
+  <h2 class="section-title">Proses Renovasi yang Mudah & Transparan</h2>
+  <p class="section-sub">Setiap tahap berjalan lancar dengan komunikasi terbuka kepada klien.</p>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">1</div><h4>Konsultasi Gratis</h4><p>Hubungi via WhatsApp atau kunjungi langsung. Kami mendengarkan kebutuhan Anda.</p></div>
+    <div class="step"><div class="step-num">2</div><h4>Survey & Estimasi</h4><p>Tim kami survey lokasi dan memberikan estimasi biaya yang detail dan transparan.</p></div>
+    <div class="step"><div class="step-num">3</div><h4>Desain & Perencanaan</h4><p>Kami buat desain sesuai selera Anda beserta rencana pengerjaan dan timeline jelas.</p></div>
+    <div class="step"><div class="step-num">4</div><h4>Pengerjaan & Serah Terima</h4><p>Renovasi dikerjakan profesional, tepat waktu, dan diserahterimakan dengan uji kualitas penuh.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section id="testimoni">
+  <div class="testi-header">
+    <div class="section-tag">Testimoni</div>
+    <h2 class="section-title">Apa Kata Klien Kami?</h2>
+    <p class="section-sub">Kepuasan klien adalah prioritas utama kami. Pengalaman nyata dari pelanggan setia RenovasiPro.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="stars">★★★★★</div><p>"Sangat puas dengan hasilnya! Rumah kami berubah total dalam waktu 3 minggu. Tim RenovasiPro sangat profesional dan bersih dalam bekerja."</p><div class="testi-author"><div class="testi-avatar">BW</div><div><div class="testi-name">Budi Wahyono</div><div class="testi-loc">Cinere, Depok</div></div></div></div>
+    <div class="testi-card"><div class="stars">★★★★★</div><p>"Harga sesuai budget, kualitas di atas ekspektasi. Dapur saya jadi seperti impian. Responsif dan komunikatif dari awal sampai akhir!"</p><div class="testi-author"><div class="testi-avatar">SR</div><div><div class="testi-name">Sari Rahmawati</div><div class="testi-loc">Beji, Depok</div></div></div></div>
+    <div class="testi-card"><div class="stars">★★★★★</div><p>"Sudah pakai RenovasiPro untuk 2 proyek. Keduanya memuaskan. Tepat waktu, rapi, dan hasilnya keren banget. Highly recommended!"</p><div class="testi-author"><div class="testi-avatar">DP</div><div><div class="testi-name">Dimas Pratama</div><div class="testi-loc">Pancoran Mas, Depok</div></div></div></div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section id="kontak">
+  <div>
+    <div class="section-tag">Hubungi Kami</div>
+    <h2 class="section-title">Siap Mulai Renovasi Rumah Anda?</h2>
+    <p class="section-sub">Konsultasikan kebutuhan renovasi Anda sekarang. Tim kami siap membantu mewujudkan rumah impian Anda.</p>
+    <div class="contact-info">
+      <div class="contact-item"><div class="contact-icon">📍</div><div><h4>Lokasi</h4><p>Jl. Margonda Raya No. 88, Depok, Jawa Barat</p></div></div>
+      <div class="contact-item"><div class="contact-icon">📱</div><div><h4>WhatsApp / Telepon</h4><p><a href="https://wa.me/6281234567890" target="_blank">+62 812-3456-7890</a></p></div></div>
+      <div class="contact-item"><div class="contact-icon">🕒</div><div><h4>Jam Operasional</h4><p>Senin – Sabtu: 08.00 – 17.00 WIB</p></div></div>
+      <div class="contact-item"><div class="contact-icon">📧</div><div><h4>Email</h4><p><a href="mailto:info@renovasiprodepok.com">info@renovasiprodepok.com</a></p></div></div>
+    </div>
+  </div>
+  <div class="contact-form">
+    <h3>Dapatkan Estimasi Gratis</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Nama Lengkap</label><input type="text" id="f-nama" placeholder="Nama Anda" /></div>
+      <div class="form-group"><label>No. WhatsApp</label><input type="tel" id="f-wa" placeholder="08xx-xxxx-xxxx" /></div>
+    </div>
+    <div class="form-group"><label>Jenis Layanan</label>
+      <select id="f-layanan">
+        <option value="">Pilih layanan...</option>
+        <option>Renovasi Total</option><option>Desain Interior</option>
+        <option>Kusen & Partisi</option><option>Instalasi Listrik & Air</option>
+        <option>Cat & Finishing</option><option>Bangun Baru</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Lokasi Properti</label><input type="text" id="f-lokasi" placeholder="Kelurahan / Kecamatan di Depok" /></div>
+    <div class="form-group"><label>Deskripsi Singkat</label><textarea id="f-desc" placeholder="Ceritakan kebutuhan renovasi Anda..."></textarea></div>
+    <button class="btn-submit" onclick="sendWA()">Kirim via WhatsApp 💬</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo">Renovasi<span>Pro</span></a>
+      <p>Jasa renovasi rumah terpercaya di Depok dengan pengalaman 10+ tahun. Kami hadir untuk mewujudkan hunian impian Anda.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Layanan</h4>
+      <ul>
+        <li><a href="#layanan">Renovasi Total</a></li>
+        <li><a href="#layanan">Desain Interior</a></li>
+        <li><a href="#layanan">Instalasi Listrik</a></li>
+        <li><a href="#layanan">Cat & Finishing</a></li>
+        <li><a href="#layanan">Bangun Baru</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Perusahaan</h4>
+      <ul>
+        <li><a href="#tentang">Tentang Kami</a></li>
+        <li><a href="#portofolio">Portofolio</a></li>
+        <li><a href="#testimoni">Testimoni</a></li>
+        <li><a href="#proses">Cara Kerja</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 RenovasiPro Depok. Semua hak dilindungi. · Jasa Renovasi Rumah Depok Terpercaya</p>
+  </div>
+</footer>
+
+<!-- WA FLOAT BUTTON -->
+<div class="wa-float">
+  <div class="wa-tooltip">Chat dengan kami sekarang!</div>
+  <a href="https://wa.me/6281234567890?text=Halo%20RenovasiPro%2C%20saya%20ingin%20konsultasi%20renovasi%20rumah%20di%20Depok" target="_blank" class="wa-btn" aria-label="Chat WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+  function sendWA() {
+    const nama = document.getElementById('f-nama').value || 'Pelanggan';
+    const wa = document.getElementById('f-wa').value || '-';
+    const layanan = document.getElementById('f-layanan').value || '-';
+    const lokasi = document.getElementById('f-lokasi').value || '-';
+    const desc = document.getElementById('f-desc').value || '-';
+    const msg = `Halo RenovasiPro 👋\n\nSaya ingin konsultasi:\n• Nama: ${nama}\n• No WA: ${wa}\n• Layanan: ${layanan}\n• Lokasi: ${lokasi}\n• Kebutuhan: ${desc}`;
+    window.open('https://wa.me/6281234567890?text=' + encodeURIComponent(msg), '_blank');
+  }
+</script>
+</body>
+</html>
